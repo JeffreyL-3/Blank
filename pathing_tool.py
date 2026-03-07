@@ -227,6 +227,8 @@ def build_output(
         "shapes": [],
         "sequence": sequence,
         "settings": {
+            "rWidth": 18,
+            "rHeight": 18,
             "maxVelocity": 40,
             "maxAcceleration": 30,
             "maxDeceleration": 30,
