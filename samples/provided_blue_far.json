@@ -1,0 +1,341 @@
+{
+  "startPoint": {
+    "x": 56.0,
+    "y": 8.0,
+    "heading": "linear",
+    "startDeg": 270.0,
+    "endDeg": 294.0,
+    "locked": false
+  },
+  "lines": [
+    {
+      "id": "scorePreloadPath-0",
+      "name": "scorePreload",
+      "endPoint": {
+        "x": 59.0,
+        "y": 18.0,
+        "heading": "linear",
+        "startDeg": 270.0,
+        "endDeg": 294.0
+      },
+      "controlPoints": [],
+      "color": "#7B9B79",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "intakeAlign2Path-1",
+      "name": "intakeAlign2",
+      "endPoint": {
+        "x": 45.0,
+        "y": 58.0,
+        "heading": "linear",
+        "startDeg": 294.0,
+        "endDeg": 180.0
+      },
+      "controlPoints": [],
+      "color": "#7C8AC7",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "intake2Path-2",
+      "name": "intake2",
+      "endPoint": {
+        "x": 6.0,
+        "y": 58.0,
+        "heading": "linear",
+        "startDeg": 180.0,
+        "endDeg": 180.0,
+        "reverse": true
+      },
+      "controlPoints": [],
+      "color": "#97ACAD",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "score2Path-3",
+      "name": "score2",
+      "endPoint": {
+        "x": 59.0,
+        "y": 18.0,
+        "heading": "linear",
+        "startDeg": 180.0,
+        "endDeg": 294.0
+      },
+      "controlPoints": [],
+      "color": "#B4A7D6",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "intakeAlign1Path-4",
+      "name": "intakeAlign1",
+      "endPoint": {
+        "x": 45.0,
+        "y": 84.0,
+        "heading": "linear",
+        "startDeg": 294.0,
+        "endDeg": 180.0
+      },
+      "controlPoints": [],
+      "color": "#F4A261",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "intake1Path-5",
+      "name": "intake1",
+      "endPoint": {
+        "x": 12.0,
+        "y": 84.0,
+        "heading": "linear",
+        "startDeg": 180.0,
+        "endDeg": 180.0,
+        "reverse": true
+      },
+      "controlPoints": [],
+      "color": "#2A9D8F",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "score1Path-6",
+      "name": "score1",
+      "endPoint": {
+        "x": 59.0,
+        "y": 18.0,
+        "heading": "linear",
+        "startDeg": 180.0,
+        "endDeg": 294.0
+      },
+      "controlPoints": [],
+      "color": "#7B9B79",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "intakeAlign3Path-7",
+      "name": "intakeAlign3",
+      "endPoint": {
+        "x": 45.0,
+        "y": 36.0,
+        "heading": "linear",
+        "startDeg": 294.0,
+        "endDeg": 180.0
+      },
+      "controlPoints": [],
+      "color": "#7C8AC7",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "intake3Path-8",
+      "name": "intake3",
+      "endPoint": {
+        "x": 6.0,
+        "y": 36.0,
+        "heading": "linear",
+        "startDeg": 180.0,
+        "endDeg": 180.0,
+        "reverse": true
+      },
+      "controlPoints": [],
+      "color": "#97ACAD",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "score3Path-9",
+      "name": "score3",
+      "endPoint": {
+        "x": 59.0,
+        "y": 18.0,
+        "heading": "linear",
+        "startDeg": 180.0,
+        "endDeg": 294.0
+      },
+      "controlPoints": [],
+      "color": "#B4A7D6",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    },
+    {
+      "id": "finalExitPath-10",
+      "name": "finalExit",
+      "endPoint": {
+        "x": 50.0,
+        "y": 35.0,
+        "heading": "linear",
+        "startDeg": 294.0,
+        "endDeg": 295.0
+      },
+      "controlPoints": [],
+      "color": "#F4A261",
+      "locked": false,
+      "waitBeforeMs": 0,
+      "waitAfterMs": 0,
+      "waitBeforeName": "",
+      "waitAfterName": ""
+    }
+  ],
+  "shapes": [],
+  "sequence": [
+    {
+      "kind": "path",
+      "lineId": "scorePreloadPath-0"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-1",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "intakeAlign2Path-1"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-2",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "intake2Path-2"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-3",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "score2Path-3"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-4",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "intakeAlign1Path-4"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-5",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "intake1Path-5"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-6",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "score1Path-6"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-7",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "intakeAlign3Path-7"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-8",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "intake3Path-8"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-9",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "score3Path-9"
+    },
+    {
+      "kind": "wait",
+      "id": "wait-10",
+      "name": "Wait",
+      "durationMs": 25,
+      "locked": false
+    },
+    {
+      "kind": "path",
+      "lineId": "finalExitPath-10"
+    }
+  ],
+  "settings": {
+    "maxVelocity": 40,
+    "maxAcceleration": 30,
+    "maxDeceleration": 30,
+    "rWidth": 18,
+    "rHeight": 18,
+    "fieldMap": "decode.webp",
+    "robotImage": "/robot.png",
+    "theme": "auto"
+  },
+  "version": "1.2.1"
+}
