@@ -60,7 +60,11 @@ def require_pose(poses: Dict[str, Dict[str, float]], name: str) -> Dict[str, flo
 
 
 def resolve_runtime_pose_map(
-    poses: Dict[str, Dict[str, float]], alliance: str, location: str, force_close_score1: bool
+    poses: Dict[str, Dict[str, float]],
+    alliance: str,
+    location: str,
+    force_close_score1: bool,
+    start_close_skip_far: bool,
 ) -> Dict[str, Dict[str, float]]:
     blue = alliance.lower() == "blue"
     close = location.lower() == "close"
@@ -78,7 +82,7 @@ def resolve_runtime_pose_map(
             "intake2": require_pose(poses, "intake2Blue"),
             "intakeAlign3": require_pose(poses, "intakeAlign3Blue"),
             "intake3": require_pose(poses, "intake3Blue"),
-            "targetExitPos": require_pose(poses, "targetExitPosFarBlue"),
+            "targetExitPos": require_pose(poses, "targetExitPosCloseBlue") if (close and start_close_skip_far) else require_pose(poses, "targetExitPosFarBlue"),
             "intakeAlignPlayer": poses.get("IntakeAlignPlayerBlue", require_pose(poses, "intakeAlign1Blue")),
             "intakePlayer": poses.get("IntakePlayerBlue", require_pose(poses, "intake1Blue")),
             "startPose": start_close if close else start_far,
@@ -94,7 +98,7 @@ def resolve_runtime_pose_map(
         "intake2": mirror_pose(require_pose(poses, "intake2Blue")),
         "intakeAlign3": mirror_pose(require_pose(poses, "intakeAlign3Blue")),
         "intake3": mirror_pose(require_pose(poses, "intake3Blue")),
-        "targetExitPos": mirror_pose(require_pose(poses, "targetExitPosFarBlue")),
+        "targetExitPos": mirror_pose(require_pose(poses, "targetExitPosCloseBlue")) if (close and start_close_skip_far) else mirror_pose(require_pose(poses, "targetExitPosFarBlue")),
         "intakeAlignPlayer": mirror_pose(poses.get("IntakeAlignPlayerBlue", require_pose(poses, "intakeAlign1Blue"))),
         "intakePlayer": mirror_pose(poses.get("IntakePlayerBlue", require_pose(poses, "intake1Blue"))),
         "startPose": mirror_pose(start_close if close else start_far),
@@ -105,8 +109,16 @@ def resolve_runtime_pose_map(
 
 
 def parse_paths(code: str) -> List[Tuple[str, str, str]]:
-    pattern = re.compile(r"(\w+)\s*=\s*new\s+Path\s*\(\s*new\s+BezierLine\(\s*(\w+)\s*,\s*(\w+)\s*\)\s*\)\s*;")
-    return pattern.findall(code)
+    paths: List[Tuple[str, str, str]] = []
+
+    direct_pattern = re.compile(
+        r"(\w+)\s*=\s*new\s+Path\s*\(\s*new\s+BezierLine\(\s*(\w+)\s*,\s*(\w+)\s*\)\s*\)\s*;"
+    )
+    helper_pattern = re.compile(r"(\w+)\s*=\s*buildPath\(\s*(\w+)\s*,\s*(\w+)\s*\)\s*;")
+
+    paths.extend(direct_pattern.findall(code))
+    paths.extend(helper_pattern.findall(code))
+    return paths
 
 
 def parse_follow_and_wait_sequence(code: str) -> Tuple[List[Tuple[str, bool]], List[float]]:
@@ -233,13 +245,20 @@ def main() -> None:
     parser.add_argument("--alliance", choices=["blue", "red"], default="blue")
     parser.add_argument("--location", choices=["far", "close"], default="far")
     parser.add_argument("--force-close-score1", action="store_true", help="Use close score pose for score1.")
+    parser.add_argument("--start-close-skip-far", action="store_true", help="When location is close, use targetExitPosCloseBlue.")
     args = parser.parse_args()
 
     raw = Path(args.input).read_text() if args.input != "-" else __import__("sys").stdin.read()
     code = strip_comments(raw)
 
     poses = parse_pose_constants(code)
-    runtime_poses = resolve_runtime_pose_map(poses, args.alliance, args.location, args.force_close_score1)
+    runtime_poses = resolve_runtime_pose_map(
+        poses,
+        args.alliance,
+        args.location,
+        args.force_close_score1,
+        args.start_close_skip_far,
+    )
     path_defs = parse_paths(code)
     follow_order, waits = parse_follow_and_wait_sequence(code)
     output = build_output(runtime_poses, path_defs, follow_order, waits)
