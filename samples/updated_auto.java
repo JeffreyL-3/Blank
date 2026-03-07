@@ -1,0 +1,162 @@
+package org.firstinspires.ftc.teamcode.autos;
+
+import static org.firstinspires.ftc.teamcode.subsystems.Drive.autoendPose;
+import static org.firstinspires.ftc.teamcode.utils.components.AllianceManager.currentAlliance;
+import static org.firstinspires.ftc.teamcode.utils.components.AllianceManager.currentLocation;
+import static dev.nextftc.extensions.pedro.PedroComponent.follower;
+
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
+import com.pedropathing.paths.Path;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.subsystems.Drive;
+import org.firstinspires.ftc.teamcode.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.subsystems.Outtake;
+import org.firstinspires.ftc.teamcode.subsystems.Robot;
+import org.firstinspires.ftc.teamcode.subsystems.Storage;
+import org.firstinspires.ftc.teamcode.subsystems.Transitions;
+import org.firstinspires.ftc.teamcode.utils.Alliance;
+import org.firstinspires.ftc.teamcode.utils.Location;
+import org.firstinspires.ftc.teamcode.utils.SequentialGroupFixed;
+import org.firstinspires.ftc.teamcode.utils.components.AllianceManager;
+
+import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.CommandManager;
+import dev.nextftc.core.commands.delays.Delay;
+import dev.nextftc.core.commands.delays.WaitUntil;
+import dev.nextftc.core.commands.groups.ParallelGroup;
+import dev.nextftc.core.commands.utility.InstantCommand;
+import dev.nextftc.core.components.BindingsComponent;
+import dev.nextftc.core.components.SubsystemComponent;
+import dev.nextftc.extensions.pedro.FollowPath;
+import dev.nextftc.extensions.pedro.PedroComponent;
+import dev.nextftc.ftc.ActiveOpMode;
+import dev.nextftc.ftc.NextFTCOpMode;
+import dev.nextftc.ftc.components.BulkReadComponent;
+
+@Autonomous
+public class ANewWorkingAuto extends NextFTCOpMode {
+    boolean blue = false;
+    boolean close = false;
+    boolean forceCloseScore1 = false;
+    boolean startCloseSkipFar = false;
+
+    public static final Pose startPoseFarBlue = new Pose(56, 8, Math.toRadians(270));
+    public static final Pose startPoseCloseBlue = new Pose(20, 123, Math.toRadians(323));
+    public static final Pose scorePoseCloseBlue = new Pose(56, 81, Math.toRadians(315));
+    public static final Pose scorePoseFarBlue = new Pose(59, 18, Math.toRadians(294));
+
+    public static final Pose intakeAlign1Blue = new Pose(45, 84, Math.toRadians(180));
+    public static final Pose intake1Blue = new Pose(12, 84, Math.toRadians(180));
+
+    public static final Pose intakeAlign2Blue = new Pose(45, 58, Math.toRadians(180));
+    public static final Pose intake2Blue = new Pose(6, 58, Math.toRadians(180));
+
+    public static final Pose intakeAlign3Blue = new Pose(45, 36, Math.toRadians(180));
+    public static final Pose intake3Blue = new Pose(6, 36, Math.toRadians(180));
+
+    public static final Pose IntakePlayerBlue = new Pose(12, 10, Math.toRadians(210));
+    public static final Pose IntakeAlignPlayerBlue = new Pose(11,17, Math.toRadians(185));
+
+    public static final Pose targetExitPosFarBlue = new Pose(50, 35, Math.toRadians(295));
+    public static final Pose targetExitPosCloseBlue = new Pose(56, 81, Math.toRadians(315));
+
+    private static Pose startPose;
+    public static Pose scorePose1;
+    public static Pose scorePoseGeneral;
+
+    Pose intakeAlign1;
+    Pose intake1;
+    Pose intakeAlign2;
+    Pose intake2;
+    Pose intakeAlign3;
+    Pose intake3;
+    Pose targetExitPos;
+    Pose intakeAlignPlayer;
+    Pose intakePlayer;
+
+    Path scorePreloadPath;
+    Path intakeAlign1Path;
+    Path intake1Path;
+    Path score1Path;
+
+    Path intakeAlign2Path;
+    Path intake2Path;
+    Path intakeAlign2OutPath;
+    Path score2Path;
+
+    Path intakeAlign3Path;
+    Path intake3Path;
+    Path score3Path;
+    Path finalExitPath;
+
+    Path intakeAlignPlayerPath;
+    Path intakePlayerPath;
+    Path scorePlayerPath;
+
+    private Command autonomousRoutine() {
+        double standardDelay = 0.025;
+        return new SequentialGroupFixed(
+                new FollowPath(scorePreloadPath),
+                new Delay(standardDelay),
+                new FollowPath(intakeAlign2Path),
+                new Delay(standardDelay),
+                new FollowPath(intake2Path, true, 0.5),
+                new Delay (0.05),
+                new Delay(standardDelay),
+                new FollowPath(intakeAlign2OutPath),
+                new Delay(standardDelay),
+                new Delay(standardDelay),
+                new FollowPath(score2Path),
+                new Delay(standardDelay),
+                new FollowPath(intakeAlign1Path),
+                new Delay(standardDelay),
+                new FollowPath(intake1Path, true, 0.5),
+                new Delay (0.05),
+                new Delay(standardDelay),
+                new Delay(standardDelay),
+                new FollowPath(score1Path),
+                new Delay(standardDelay),
+                new FollowPath(intakeAlign3Path),
+                new Delay(standardDelay),
+                new FollowPath(intake3Path, true, 0.5),
+                new Delay (0.05),
+                new Delay(standardDelay),
+                new Delay(standardDelay),
+                new FollowPath(score3Path),
+                new Delay(standardDelay),
+                new Delay(standardDelay),
+                new FollowPath(finalExitPath)
+        );
+    }
+
+    public void onStartButtonPressed() {
+        scorePreloadPath = buildPath(startPose, scorePoseGeneral);
+        intakeAlign2Path = buildPath(scorePoseGeneral, intakeAlign2);
+        intake2Path = buildPath(intakeAlign2, intake2);
+        intakeAlign2OutPath = buildPath(intake2, intakeAlign2);
+        score2Path = buildPath(intakeAlign2, scorePoseGeneral);
+
+        intakeAlign1Path = buildPath(scorePoseGeneral, intakeAlign1);
+        intake1Path = buildPath(intakeAlign1, intake1);
+        score1Path = buildPath(intake1, scorePose1);
+
+        intakeAlign3Path = buildPath(scorePose1, intakeAlign3);
+        intake3Path = buildPath(intakeAlign3, intake3);
+        score3Path = buildPath(intake3, scorePoseGeneral);
+        finalExitPath = buildPath(scorePoseGeneral, targetExitPos);
+
+        intakeAlignPlayerPath = buildPath(scorePoseGeneral, intakeAlignPlayer);
+        intakePlayerPath = buildPath(intakeAlignPlayer, intakePlayer);
+        scorePlayerPath = buildPath(intakePlayer, scorePoseGeneral);
+    }
+
+    private Path buildPath(Pose from, Pose to) {
+        Path path = new Path(new BezierLine(from, to));
+        path.setLinearHeadingInterpolation(from.getHeading(), to.getHeading());
+        return path;
+    }
+}
